@@ -1,0 +1,57 @@
+{
+    "manifest_version": 2,
+    "version": "3.1",
+    // Why is here __ and I've seen appName, appDesc in locales message.json
+    "name": "__MSG_appName__",
+    "description": "__MSG_appDesc__",
+    
+    // Is that it is accessing locales folder
+    "default_locale": "en",
+    "content_security_policy": "media-src 'self'; object-src 'self'; script-src 'self' https://www.google.com https://ssl.google-analytics.com",
+    "background": {
+        "scripts": ["eventPage.js"],
+        // What is persistent and why is it false
+        "persistent": false
+    },
+    "option_page": "views/options.html",
+    "browser_action": 
+    {
+        "default_icon": "assets/img/48.png",
+        "default_title": "Mind the world!",
+        "default_popup": "views/popup.html"
+    },
+    
+    // Runs on this 
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "mtw.js"
+            ],
+            // what is run_at and why all_frames is false
+            "run_at": "document_end",
+            "all_frames": false
+        }
+    ],
+    // Is it permission to access
+    "web_accessible_resources": ["assets/css/*", "assets/fonts/*","assets/js/*"],
+    "icons": {
+        "22": "assets/img/22.png",
+        "24": "assets/img/24.png",
+        "48": "assets/img/48.png",
+        "128": "assets/img/128.png"
+    },
+    // Permissions for what?
+    "permissions": [
+        "http://google.com/",
+        "tabs",
+        "<all_urls",
+        "storage",
+        "contextMenus",
+        "tts",
+        "unlimitedStorage"
+    ]
+}
